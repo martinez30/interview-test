@@ -1,5 +1,6 @@
 ﻿using Application.Common.Interfaces;
 using Common;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,12 +27,11 @@ namespace WebApi.Extensions
             )
             .AddJsonOptions(option =>
                 option.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter())
-            )
-            .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
-            .AddFluentValidation(fv =>
-            {
-                fv.RegisterValidatorsFromAssemblyContaining<IClientControlContext>();
-            });
+            );
+            
+            services.AddValidatorsFromAssemblyContaining<IClientControlContext>();
+            services.AddFluentValidationAutoValidation();
+            services.AddFluentValidationClientsideAdapters();
 
             services.Configure<ApiBehaviorOptions>(options =>
             {
