@@ -7,7 +7,9 @@
         public string PhoneNumber { get; private set; }
         public string Email { get; private set; }
         public string DocumentNumber { get; private set; }
-        public Address Address { get; private set; }
+        public Address Address { get; set; }
+
+        public Client() { }
 
         public Client(string firstName, string lastName, string phoneNumber, string email, string documentNumber, Address address)
         {

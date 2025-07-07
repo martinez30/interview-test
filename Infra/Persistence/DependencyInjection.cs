@@ -12,8 +12,8 @@ namespace Persistence
         {
             services.AddDbContext<ClientControlContext>(options =>
             {
-                options.UseSqlServer(Configuration.ConnectionString,
-                    sqlServerOptionsAction: sqlOptions =>
+                options.UseMySql(Configuration.ConnectionString, new MySqlServerVersion(new Version(8, 0, 0)),
+                    mySqlOptionsAction: sqlOptions =>
                     {
                         sqlOptions.EnableRetryOnFailure(
                             maxRetryCount: 5,

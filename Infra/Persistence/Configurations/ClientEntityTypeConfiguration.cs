@@ -1,5 +1,4 @@
 ﻿using Domain;
-using Innofactor.EfCoreJsonValueConverter;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -10,12 +9,21 @@ namespace Persistence.Configurations
         public override void Configure(EntityTypeBuilder<Client> builder)
         {
             builder.ToTable(nameof(Client));
-            builder.Property(b => b.FirstName).IsRequired().HasColumnType("nvarchar(100)");
-            builder.Property(b => b.LastName).IsRequired().HasColumnType("nvarchar(100)");
-            builder.Property(b => b.PhoneNumber).IsRequired().HasColumnType("nvarchar(15)");
-            builder.Property(b => b.DocumentNumber).IsRequired().HasColumnType("nvarchar(20)");
-            builder.Property(b => b.Email).IsRequired().HasColumnType("nvarchar(255)");
-            builder.Property(b=>b.Address).HasColumnType("varchar(5000)").HasJsonValueConversion();
+            builder.Property(b => b.FirstName).IsRequired().HasColumnType("varchar(100)");
+            builder.Property(b => b.LastName).IsRequired().HasColumnType("varchar(100)");
+            builder.Property(b => b.PhoneNumber).IsRequired().HasColumnType("varchar(15)");
+            builder.Property(b => b.DocumentNumber).IsRequired().HasColumnType("varchar(20)");
+            builder.Property(b => b.Email).IsRequired().HasColumnType("varchar(255)");
+            builder.OwnsOne(c => c.Address, addressBuilder =>
+            {
+                addressBuilder.Property(a => a.PostalCode).IsRequired().HasColumnType("varchar(10)");
+                addressBuilder.Property(a => a.AddressLine).IsRequired().HasColumnType("varchar(200)");
+                addressBuilder.Property(a => a.Number).IsRequired().HasColumnType("varchar(10)");
+                addressBuilder.Property(a => a.Complement).HasColumnType("varchar(100)");
+                addressBuilder.Property(a => a.Neighborhood).IsRequired().HasColumnType("varchar(100)");
+                addressBuilder.Property(a => a.City).IsRequired().HasColumnType("varchar(100)");
+                addressBuilder.Property(a => a.State).IsRequired().HasColumnType("varchar(2)");
+            });
         }
     }
 }
