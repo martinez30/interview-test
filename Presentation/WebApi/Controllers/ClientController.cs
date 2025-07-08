@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace WebApi.Controllers
 {
     [ApiController]
-    [Route("clients")]
+    [Route("api/[controller]")]
     [Authorize]
     public class ClientController : ControllerBase
     {
