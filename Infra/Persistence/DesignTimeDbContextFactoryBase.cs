@@ -1,6 +1,6 @@
-﻿using Common;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
 
@@ -12,9 +12,15 @@ namespace Persistence
         public TContext CreateDbContext(string[] args)
         {
             var basePath = Directory.GetCurrentDirectory() + string.Format(".{0}..{0}..{0}Presentation{0}WebApi", Path.DirectorySeparatorChar);
-            Console.WriteLine(basePath);
-            Configuration.Build(basePath);
-            return Create(connectionString: Configuration.ConnectionString);
+            
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(basePath)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .Build();
+
+            var connectionString = configuration.GetConnectionString("ConnectionString");
+
+            return Create(connectionString: connectionString);
         }
 
         protected abstract TContext CreateNewInstance(DbContextOptions<TContext> options);
@@ -30,7 +36,7 @@ namespace Persistence
 
             var optionsBuilder = new DbContextOptionsBuilder<TContext>();
 
-            optionsBuilder.UseSqlServer(connectionString);
+            optionsBuilder.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 0)));
 
             return CreateNewInstance(optionsBuilder.Options);
         }

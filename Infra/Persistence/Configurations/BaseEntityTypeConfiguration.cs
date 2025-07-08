@@ -11,9 +11,9 @@ namespace Persistence.Configurations
     {
         public virtual void Configure(EntityTypeBuilder<TBase> builder)
         {
-            builder.HasKey(b => b.Id).IsClustered();
+            builder.HasKey(b => b.Id);
             builder.Property<Guid>(b => b.Id)
-                .UsePropertyAccessMode(PropertyAccessMode.FieldDuringConstruction)
+                .ValueGeneratedOnAdd()
                 .IsRequired(true);
 
             builder.Property<DateTime>(b => b.CreatedAt)

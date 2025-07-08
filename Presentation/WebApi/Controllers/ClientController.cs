@@ -4,6 +4,7 @@ using Application.Client.Queries.ClientByIdQuery;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,7 +12,8 @@ using System.Threading.Tasks;
 namespace WebApi.Controllers
 {
     [ApiController]
-    [Route("clients")]
+    [Route("api/[controller]")]
+    [Authorize]
     public class ClientController : ControllerBase
     {
         private readonly IMediator _mediator;

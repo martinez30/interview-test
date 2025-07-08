@@ -11,6 +11,7 @@ namespace Persistence
     public class ClientControlContext : DbContext, IClientControlContext
     {
         public DbSet<Client> Clients { get; set; }
+        public DbSet<Domain.User> Users { get; set; }
 
         public ClientControlContext(DbContextOptions<ClientControlContext> options) : base(options) { }
 
@@ -47,6 +48,11 @@ namespace Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ClientControlContext).Assembly);
+
+            // Seed default user for testing purposes
+            modelBuilder.Entity<Domain.User>().HasData(
+                new Domain.User("admin", BCrypt.Net.BCrypt.HashPassword("admin"), Domain.Profile.Administrator) { Id = Guid.Parse("a1b2c3d4-e5f6-7890-1234-567890abcdef") }
+            );
         }
     }
 }

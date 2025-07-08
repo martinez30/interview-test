@@ -8,12 +8,10 @@ Baixe o docker e instale em sua maquina. [https://www.docker.com/get-started]
 
 ## 2º Passo: 
 
-Rode o comando abaixo no CMD (PowerShell/Bash) para rodar uma instancia local do "SQL Server":
+Execute o script `setup-mysql.sh` para automatizar a configuração do MySQL com Docker:
+> ./setup-mysql.sh
 
-> docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=Pass@word' -p 5433:1433 -d mcr.microsoft.com/mssql/server:2017-latest
- 
-
-***Caso sua maquina não de suporte ao docker, baixe e instale o sqlexpress e atualize a connectionstring do projeto [https://www.microsoft.com/pt-br/sql-server/sql-server-downloads]***
+***Caso sua maquina não de suporte ao docker, baixe e instale o MySQL e atualize a connectionstring do projeto***
 
 ## 3º Passo:
 
