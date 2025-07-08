@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
@@ -11,9 +12,11 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(ClientControlContext))]
-    partial class ClientControlContextModelSnapshot : ModelSnapshot
+    [Migration("20250708141452_SeedDefaultUser")]
+    partial class SeedDefaultUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,9 +96,9 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("74e83886-d33f-4e57-8883-2bf365566fc5"),
+                            Id = new Guid("a65d9bd7-0c7c-485a-9161-f0972b6137d9"),
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PasswordHash = "$2a$11$6gGmUMdOT.JkOXt94spIWO2Kw23Lfi0iJrLaECPmMRyXsnQ.MQOYu",
+                            PasswordHash = "admin",
                             Role = "Administrator",
                             Username = "admin"
                         });
