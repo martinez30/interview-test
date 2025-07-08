@@ -12,7 +12,8 @@ namespace Persistence.Configurations
             builder.Property(u => u.Username).IsRequired().HasColumnType("varchar(50)");
             builder.HasIndex(u => u.Username).IsUnique();
             builder.Property(u => u.PasswordHash).IsRequired().HasColumnType("varchar(255)");
-            builder.Property(u => u.Role).IsRequired().HasColumnType("varchar(50)");
+            builder.Property(u => u.Profile)
+                .HasConversion<string>();
         }
     }
 }

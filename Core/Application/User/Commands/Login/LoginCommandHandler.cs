@@ -43,7 +43,7 @@ namespace Application.User.Commands.Login
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Name, user.Username),
-                    new Claim(ClaimTypes.Role, user.Role)
+                    new Claim(ClaimTypes.Role, user.Profile.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(expiresInMinutes),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),

@@ -51,7 +51,7 @@ namespace Persistence
 
             // Seed default user for testing purposes
             modelBuilder.Entity<Domain.User>().HasData(
-                new Domain.User("admin", BCrypt.Net.BCrypt.HashPassword("admin"), "Administrator") { Id = Guid.NewGuid() }
+                new Domain.User("admin", BCrypt.Net.BCrypt.HashPassword("admin"), Domain.Profile.Administrator) { Id = Guid.Parse("a1b2c3d4-e5f6-7890-1234-567890abcdef") }
             );
         }
     }
