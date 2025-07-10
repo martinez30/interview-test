@@ -20,10 +20,7 @@ export const routes = createBrowserRouter([
         element: <DashboardLayout />,
         errorElement: <Page500 />,
         children: [
-            {
-                path: "",
-                element: <></>,
-            },
+            { path: "", Component: lazy(() => import("@/pages/index")) },
         ]
     },
     {
@@ -42,14 +39,21 @@ export const routes = createBrowserRouter([
         ]
     },
     {
+        path: NAVIGATION_PATH.CLIENTS.ROOT,
+        element: <AuthGuard belongsTo={ALL_ROLES}><DashboardLayout /></AuthGuard>,
+        errorElement: <Page500 />,
+        children: [
+            { path: NAVIGATION_PATH.CLIENTS.LISTING.RELATIVE, Component: lazy(() => import("@/pages/clients/ClientListing")) },
+            { path: NAVIGATION_PATH.CLIENTS.CREATE.RELATIVE, Component: lazy(() => import("@/pages/clients/ClientForm")) },
+            { path: NAVIGATION_PATH.CLIENTS.EDIT.RELATIVE, Component: lazy(() => import("@/pages/clients/ClientForm")) },
+        ]
+    },
+    {
         path: NAVIGATION_PATH.AUTH.ROOT,
         element: <AuthLayout />,
         errorElement: <Page500 />,
         children: [
             { path: NAVIGATION_PATH.AUTH.SIGN_IN.RELATIVE, Component: lazy(() => import("@/pages/auth/SignIn")) },
-            { path: NAVIGATION_PATH.AUTH.NEW_PASSWORD.RELATIVE, Component: lazy(() => import("@/pages/auth/ForceChangePassword")) },
-            { path: NAVIGATION_PATH.AUTH.RESET_PASSWORD.RELATIVE, Component: lazy(() => import("@/pages/auth/ResetPassword")) },
-            { path: NAVIGATION_PATH.AUTH.MFA.RELATIVE, Component: lazy(() => import("@/pages/auth/MFA")) }
         ],
     },
     {

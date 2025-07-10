@@ -4,21 +4,17 @@ import { Helmet } from "react-helmet-async";
 
 import { Button } from "react-bootstrap";
 import { NAVIGATION_PATH } from "@/constants";
-import useAuth from "@/hooks/useAuth";
-import { Roles } from "@/constants/Roles";
 
 import Image from "@/assets/img/page404.svg"
 
-const Page404 = () => {
-    const { roles } = useAuth();
-    let navigate: string = "";
+import useAppSelector from "@/hooks/useAppSelector";
+import { UserProfile } from "@/types/api/enums/UserProfile";
 
-    if (roles.includes(Roles.ADMINISTRATOR)) {
-        navigate = NAVIGATION_PATH.DASHBOARD.ROOT;
-    }
-    else {
-        navigate = NAVIGATION_PATH.DASHBOARD.ROOT
-    }
+const Page404 = () => {
+    const { user } = useAppSelector((state) => state.auth);
+    const navigate: string = !!user && user.profile === UserProfile.Administrator
+        ? NAVIGATION_PATH.DASHBOARD.ROOT
+        : NAVIGATION_PATH.DASHBOARD.ROOT;
 
     return (
         <React.Fragment>

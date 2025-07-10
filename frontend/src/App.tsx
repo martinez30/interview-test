@@ -9,7 +9,7 @@ import { routes } from "./routes";
 import ThemeProvider from "./contexts/ThemeContext";
 import SidebarProvider from "./contexts/SidebarContext";
 import LayoutProvider from "./contexts/LayoutContext";
-import AuthProvider from "./contexts/AuthContext";
+
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -18,7 +18,6 @@ import SplashScreenLayout from "./layouts/SplashScreenLayout";
 import { LoadingProvider } from "./contexts/LoadingContext";
 import { ErrorBoundary } from "react-error-boundary";
 import { errorHandling } from "./utils/errorHandling";
-import Page500 from "./pages/errors/Page500";
 import { DialogProvider } from "./contexts/DialogContext";
 
 function App() {
@@ -50,8 +49,9 @@ function App() {
 
   return (
     <ErrorBoundary FallbackComponent={({ error }) => {
+      console.log(error);
       errorHandling(error)
-      return <Page500 />
+      return <h1>teste</h1>
     }}>
       <Suspense fallback={<SplashScreenLayout />}>
         <LoadingProvider>
@@ -59,21 +59,19 @@ function App() {
             <QueryClientProvider client={queryClient}>
               <Provider store={store}>
                 <PersistGate loading={<SplashScreenLayout />} persistor={persistor}>
-                  <AuthProvider>
-                    <HelmetProvider>
-                      <Helmet
-                        titleTemplate={`%s | ${import.meta.env.VITE_APP_TITLE}`}
-                        defaultTitle={import.meta.env.VITE_APP_TITLE}
-                      />
-                      <ThemeProvider>
-                        <SidebarProvider>
-                          <LayoutProvider>
-                            <RouterProvider router={routes} />
-                          </LayoutProvider>
-                        </SidebarProvider>
-                      </ThemeProvider>
-                    </HelmetProvider>
-                  </AuthProvider>
+                  <HelmetProvider>
+                    <Helmet
+                      titleTemplate={`%s | ${import.meta.env.VITE_APP_TITLE}`}
+                      defaultTitle={import.meta.env.VITE_APP_TITLE}
+                    />
+                    <ThemeProvider>
+                      <SidebarProvider>
+                        <LayoutProvider>
+                          <RouterProvider router={routes} />
+                        </LayoutProvider>
+                      </SidebarProvider>
+                    </ThemeProvider>
+                  </HelmetProvider>
                 </PersistGate>
               </Provider>
             </QueryClientProvider>

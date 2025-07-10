@@ -1,30 +1,29 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { isExpired } from "react-jwt"
 
-import useAuth from "@/hooks/useAuth";
-import { NAVIGATION_PATH, ROLES } from "@/constants";
+import { NAVIGATION_PATH } from "@/constants";
 import Loader from "../Loader";
 import { Suspense } from "react";
 import useAppSelector from "@/hooks/useAppSelector";
+import { UserProfile } from "@/types/api/enums/UserProfile";
 
 interface AuthGuardType {
-  belongsTo?: ROLES[]
+  belongsTo?: UserProfile[]
   children: React.ReactNode;
 }
 
 function AuthGuard({ children, belongsTo }: AuthGuardType) {
-  const { roles } = useAuth();
-  const auth = useAppSelector(state => state.auth);
+  const { access_token, user } = useAppSelector(state => state.auth);
   const { pathname } = useLocation();
 
-  if (belongsTo !== undefined && belongsTo.length > 0 && roles !== undefined && roles.length > 0) {
-    const authorized = belongsTo.some((role) => roles.includes(role));
+  if (belongsTo !== undefined && belongsTo.length > 0 && user?.profile !== undefined) {
+    const authorized = belongsTo.some((role) => user.profile === role);
     if (!authorized) {
       return <Navigate to={NAVIGATION_PATH.ERROR_PAGES.PAGE_500} />;
     }
   }
 
-  if ((!auth || auth.access_token == null || isExpired(auth.access_token))) {
+  if ((access_token == null || isExpired(access_token))) {
     let route = `${NAVIGATION_PATH.AUTH.SIGN_IN.ABSOLUTE}`;
     if (pathname !== '/') {
       const searchParams = new URLSearchParams({ redirect_uri: pathname });

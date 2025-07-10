@@ -9,8 +9,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System;
+using Application.Common.Exceptions;
 using Microsoft.IdentityModel.Tokens;
-using BCrypt.Net;
 
 namespace Application.User.Commands.Login
 {
@@ -31,7 +31,7 @@ namespace Application.User.Commands.Login
 
             if (user == null || !VerifyPasswordHash(request.Password, user.PasswordHash))
             {
-                throw new UnauthorizedAccessException("Invalid username or password");
+                throw new BadRequestException("Invalid username or password");
             }
 
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -57,6 +57,11 @@ namespace Application.User.Commands.Login
             return new LoginResponse
             {
                 Token = tokenString,
+                User = new LoginResponseUser()
+                {
+                    Username = user.Username,
+                    Profile = user.Profile
+                },
                 ExpiresIn = expiresInMinutes * 60 // Convert minutes to seconds
             };
         }

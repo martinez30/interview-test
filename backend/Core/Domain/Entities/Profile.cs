@@ -1,9 +1,9 @@
 
-namespace Domain
+namespace Domain.Entities
 {
     public enum Profile
     {
-        Administrator,
-        Operator
+        Administrator = 1,
+        Operator = 2
     }
 }

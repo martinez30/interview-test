@@ -1,19 +1,18 @@
 import { SidebarItemsType } from "@/types/sidebar";
-import { NAVIGATION_PATH, ROLES } from "@/constants";
+import { NAVIGATION_PATH } from "@/constants";
 import { FiUsers } from "react-icons/fi";
+import { UserProfile } from "@/types/api/enums/UserProfile";
+import { FaRegAddressBook } from "react-icons/fa";
 
 // PAGES
 const USERS_PAGE: SidebarItemsType = { href: NAVIGATION_PATH.USERS.LISTING.ABSOLUTE, title: "Usuários", icon: FiUsers }
-
-const ADMIN_SIDEBAR = [
-    USERS_PAGE,
-];
+const CLIENTS_PAGE: SidebarItemsType = { href: NAVIGATION_PATH.CLIENTS.LISTING.ABSOLUTE, title: "Clientes", icon: FaRegAddressBook }
 
 export const SIDEBAR = {
-    [ROLES.ADMIN]: [
+    [UserProfile.Administrator]: [
         {
             title: "Gestão",
-            pages: ADMIN_SIDEBAR
+            pages: [USERS_PAGE, CLIENTS_PAGE]
         }
     ],
 }

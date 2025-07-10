@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Domain.Entities;
 
 namespace Persistence
 {
@@ -51,7 +52,7 @@ namespace Persistence
 
             // Seed default user for testing purposes
             modelBuilder.Entity<Domain.User>().HasData(
-                new Domain.User("admin", BCrypt.Net.BCrypt.HashPassword("admin"), Domain.Profile.Administrator) { Id = Guid.Parse("a1b2c3d4-e5f6-7890-1234-567890abcdef") }
+                new Domain.User("admin", BCrypt.Net.BCrypt.HashPassword("admin"), Profile.Administrator) { Id = Guid.Parse("a1b2c3d4-e5f6-7890-1234-567890abcdef") }
             );
         }
     }

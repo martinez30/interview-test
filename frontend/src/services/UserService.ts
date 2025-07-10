@@ -2,12 +2,18 @@ import {BaseService} from "./BaseService";
 import {PagedList} from "@/types/api/PagedList";
 import {User} from "@/types/api/User";
 
-export class UserService extends BaseService {
+class UserService extends BaseService {
     constructor() {
         super("user");
     }
 
-    async paged(params: any, pagination: any) {
-        return await this.get<PagedList<User>>("", { ...params, ...pagination });
+    async paged(params: any, abortSignal?: AbortSignal) {
+        return await this.get<PagedList<User>>("", { ...params }, abortSignal);
+    }
+
+    async getAll(params: any, abortSignal?: AbortSignal) {
+        return await this.get<User[]>("", { ...params }, abortSignal);
     }
 }
+
+export default new UserService();

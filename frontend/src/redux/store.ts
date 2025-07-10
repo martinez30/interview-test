@@ -4,12 +4,13 @@ import { persistReducer, persistStore } from "reduxjs-toolkit-persist";
 import localStorage from 'redux-persist/lib/storage'
 import { encryptTransform } from "redux-persist-transform-encrypt";
 
-import authReducer from "./slices/auth.slice";
-import { ToolkitStore } from "@reduxjs/toolkit/dist/configureStore";
+import authReducer, { AuthState } from "./slices/auth.slice";
 
 const encryptor = encryptTransform({ secretKey: import.meta.env.VITE_APP_SECURE_LOCAL_STORAGE_HASH_KEY })
 
-export const store: ToolkitStore = configureStore({
+export const store = configureStore<{
+  auth: AuthState
+}>({
   reducer: {
     auth: persistReducer({ key: "auth", storage: localStorage, transforms: [encryptor] }, authReducer)
   },

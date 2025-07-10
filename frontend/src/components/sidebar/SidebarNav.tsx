@@ -1,15 +1,15 @@
 import SidebarNavSection from "./SidebarNavSection";
 import { SIDEBAR } from "@/components/sidebar/dashboardItems";
 import useAppSelector from "@/hooks/useAppSelector";
-import useAuth from "@/hooks/useAuth";
-import { useEffect } from "react";
+import { AuthState } from "@/redux/slices/auth.slice";
 
 const SidebarNav = () => {
-  const { groups: roles } = useAppSelector(state => state.auth);
-  const index = roles.findIndex((role: string) => role.endsWith("Master"));
-  
-  // @ts-ignore
-  const sidebar = SIDEBAR[roles.at(index > -1 ? index : 0)];
+  const { user } = useAppSelector((state: { auth: AuthState }) => state.auth);
+
+  const sidebar = user?.profile
+    ? SIDEBAR[user?.profile]
+    : [];
+
   return (
     <ul className="sidebar-nav">
       {sidebar && sidebar.map((item: any) => (

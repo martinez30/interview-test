@@ -1,13 +1,10 @@
 import { ROLES } from "@/constants";
-import useAuth from "@/hooks/useAuth";
 
-export function isAdmin() {
-    const { roles } = useAuth();
+export function isAdmin(roles: string[]) {
     return roles.some(role => [ROLES.ADMIN.toString()].includes(role));
 }
 
-export function isBackoffice() {
-    const { roles } = useAuth();
+export function isBackoffice(roles: string[]) {
     return roles.some(role => [
         ROLES.ADMIN.toString(),
     ].includes(role));

@@ -3,6 +3,7 @@ using MediatR;
 using System;
 
 using Domain;
+using Domain.Entities;
 
 namespace Application.User.Commands.CreateUser
 {

@@ -1,16 +1,16 @@
 export enum UserProfile {
-    ADMIN = 1,
+    Administrator = 1,
 }
 
-export function getBadgeColorByUserProfile(value: UserProfile) {
+export function getBadgeColorByUserProfile(value: string) {
     switch (value) {
-        case UserProfile.ADMIN:
+        case UserProfile[UserProfile.Administrator]:
             return "dark";
     }
 }
 
 export function userProfileOptions() {
     return [
-        { id: UserProfile.ADMIN, name: "Administrador" },
+        { id: UserProfile.Administrator, name: "Administrador" },
     ]
 }

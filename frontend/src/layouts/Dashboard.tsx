@@ -2,7 +2,6 @@ import React, { Suspense, ReactNode, useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { AuthState, setProfile } from "@/redux/slices/auth.slice";
 import SplashScreenLayout from "./SplashScreenLayout";
-import { AuthService } from "@/services/AuthService";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { store } from "@/redux/store";
 import { NavigationWatcher } from "@/routes";
@@ -20,36 +19,34 @@ interface DashboardProps {
   children?: ReactNode;
 }
 
-const authService = new AuthService();
-
 const Dashboard: React.FC<DashboardProps> = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const auth: AuthState = useAppSelector(state => state.auth);
 
-  const { data } = useSuspenseQuery<AuthState["profile"]>({
-    queryKey: [ReactQueryKeys.PROFILE],
-    meta: {
-      fetchFn: async () => {
-        if (!!auth.session)
-          return {};
+  // const { data } = useSuspenseQuery<AuthState["profile"]>({
+  //   queryKey: [ReactQueryKeys.PROFILE],
+  //   meta: {
+  //     fetchFn: async () => {
+  //       if (!!auth.session)
+  //         return {};
 
-        const response = await authService.getProfile();
-        store.dispatch(setProfile(response.data));
-        return response.data;
-      }
-    }
-  });
+  //       const response = await authService.getProfile();
+  //       store.dispatch(setProfile(response.data));
+  //       return response.data;
+  //     }
+  //   }
+  // });
 
-  useEffect(() => {
-    if (data) {
-      setLoading(false);
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (data) {
+  //     setLoading(false);
+  //   }
+  // }, [])
 
-  if (loading || !data) {
-    return <SplashScreenLayout />
-  }
+  // if (loading || !data) {
+  //   return <SplashScreenLayout />
+  // }
 
   return (
     <Suspense fallback={<SplashScreenLayout />}>

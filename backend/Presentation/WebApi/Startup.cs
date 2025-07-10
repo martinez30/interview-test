@@ -26,6 +26,18 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        // For development, we allow any origin. In a production environment,
+                        // you should restrict this to your frontend's actual domain.
+                        builder.WithOrigins("http://localhost:3000")
+                               .AllowAnyHeader()
+                               .AllowAnyMethod();
+                    });
+            });
 
             services.AddCustomFramework();
             services.AddApplication();
@@ -88,6 +100,8 @@ namespace WebApi
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
             }
+
+            app.UseCors();
 
             app.UseRouting();
 

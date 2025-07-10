@@ -1,4 +1,5 @@
 export const ReactQueryKeys = {
     USER: "user",
-    PROFILE: "profile"
+    PROFILE: "profile",
+    CLIENT: "client"
 }

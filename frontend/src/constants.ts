@@ -1,3 +1,5 @@
+import { UserProfile } from "./types/api/enums/UserProfile";
+
 export const NAVIGATION_PATH = {
     DASHBOARD: {
         ROOT: "/",
@@ -23,35 +25,30 @@ export const NAVIGATION_PATH = {
             RELATIVE: "sign-in",
             ABSOLUTE: "/auth/sign-in"
         },
-        NEW_PASSWORD: {
-            RELATIVE: "new-password",
-            ABSOLUTE: "/auth/new-password"
-        },
-        RESET_PASSWORD: {
-            RELATIVE: "reset-password",
-            ABSOLUTE: "/auth/reset-password"
-        },
-        MFA: {
-            RELATIVE: "mfa",
-            ABSOLUTE: "/auth/mfa"
-        }
     },
     ERROR_PAGES: {
         PAGE_404: "404",
         PAGE_500: "500",
+    },
+    CLIENTS: {
+        ROOT: "clientes",
+        LISTING: {
+            RELATIVE: "listagem",
+            ABSOLUTE: "/clientes/listagem"
+        },
+        CREATE: {
+            RELATIVE: "criar",
+            ABSOLUTE: "/clientes/criar"
+        },
+        EDIT: {
+            RELATIVE: "editar/:id",
+            ABSOLUTE: "/clientes/editar/:id"
+        }
     }
 }
 
-export enum ROLES {
-    ADMIN = "Administrators",
-}
-
 export const ALL_ROLES = [
-    ROLES.ADMIN,
-]
-
-export const ALL_BACKOFFICE_ROLES = [
-    ROLES.ADMIN,
+    UserProfile.Administrator,
 ]
 
 export const SIDEBAR_POSITION = {
