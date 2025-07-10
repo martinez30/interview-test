@@ -1,24 +1,10 @@
-import { UserProfile } from "./types/api/enums/UserProfile";
+
 
 export const NAVIGATION_PATH = {
     DASHBOARD: {
         ROOT: "/",
     },
-    USERS: {
-        ROOT: "usuarios",
-        LISTING: {
-            RELATIVE: "listagem",
-            ABSOLUTE: "/usuarios/listagem"
-        },
-        CREATE: {
-            RELATIVE: "criar",
-            ABSOLUTE: "/usuarios/criar"
-        },
-        EDIT: {
-            RELATIVE: "editar/:id",
-            ABSOLUTE: "/usuarios/editar/:id"
-        }
-    },
+    
     AUTH: {
         ROOT: "auth",
         SIGN_IN: {
@@ -40,16 +26,11 @@ export const NAVIGATION_PATH = {
             RELATIVE: "criar",
             ABSOLUTE: "/clientes/criar"
         },
-        EDIT: {
-            RELATIVE: "editar/:id",
-            ABSOLUTE: "/clientes/editar/:id"
-        }
+        
     }
 }
 
-export const ALL_ROLES = [
-    UserProfile.Administrator,
-]
+
 
 export const SIDEBAR_POSITION = {
     LEFT: "left",

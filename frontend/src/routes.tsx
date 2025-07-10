@@ -7,11 +7,12 @@ import DashboardLayout from "./layouts/Dashboard";
 // Guards
 import AuthGuard from "./components/guards/AuthGuard";
 
-import { ALL_ROLES, NAVIGATION_PATH } from "@/constants";
+import { NAVIGATION_PATH } from "@/constants";
 import { createBrowserRouter, useLocation } from "react-router-dom";
 import SplashScreenLayout from "./layouts/SplashScreenLayout";
 import Page500 from "./pages/errors/Page500";
 import { cancelPendingRequests } from "./utils/axios";
+import { UserProfile } from "./types/api/enums/UserProfile";
 
 
 export const routes = createBrowserRouter([
@@ -28,24 +29,15 @@ export const routes = createBrowserRouter([
         errorElement: <Page500 />,
         Component: SplashScreenLayout
     },
-    {
-        path: NAVIGATION_PATH.USERS.ROOT,
-        element: <AuthGuard belongsTo={ALL_ROLES}><DashboardLayout /></AuthGuard>,
-        errorElement: <Page500 />,
-        children: [
-            { path: NAVIGATION_PATH.USERS.LISTING.RELATIVE, Component: lazy(() => import("@/pages/users/UserListing")) },
-            { path: NAVIGATION_PATH.USERS.CREATE.RELATIVE, Component: lazy(() => import("@/pages/users/UserForm")) },
-            { path: NAVIGATION_PATH.USERS.EDIT.RELATIVE, Component: lazy(() => import("@/pages/users/UserForm")) },
-        ]
-    },
+    
     {
         path: NAVIGATION_PATH.CLIENTS.ROOT,
-        element: <AuthGuard belongsTo={ALL_ROLES}><DashboardLayout /></AuthGuard>,
+        element: <AuthGuard belongsTo={[UserProfile.Administrator]}><DashboardLayout /></AuthGuard>,
         errorElement: <Page500 />,
         children: [
             { path: NAVIGATION_PATH.CLIENTS.LISTING.RELATIVE, Component: lazy(() => import("@/pages/clients/ClientListing")) },
             { path: NAVIGATION_PATH.CLIENTS.CREATE.RELATIVE, Component: lazy(() => import("@/pages/clients/ClientForm")) },
-            { path: NAVIGATION_PATH.CLIENTS.EDIT.RELATIVE, Component: lazy(() => import("@/pages/clients/ClientForm")) },
+            
         ]
     },
     {

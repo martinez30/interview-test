@@ -34,12 +34,7 @@ const ClientListing = () => {
                 <DataTable<Client, any>
                     thin
                     columns={[
-                        {
-                            Header: "Ações",
-                            accessor: item => <CrudActions cell={item} actions={[
-                                { type: ActionItemType.EDIT, handler: (item) => { window.open(mountRoute(NAVIGATION_PATH.CLIENTS.EDIT.ABSOLUTE, { id: item.id }), '_blank') } },
-                            ]} />
-                        },
+                        
                         { Header: "Nome", accessor: "firstName" },
                         { Header: "Sobrenome", accessor: "lastName" },
                         { Header: "Email", accessor: "email" },
